@@ -141,3 +141,10 @@ const server = http.createServer(async (req, res) => {
         sendJSON(res, 404, { error: 'Route not found' });
     }
     });
+    server.listen(PORT, () => {
+    console.log('\n=================================');
+    console.log('🎵 MUSIC PLAYLIST API');
+    console.log('=================================');
+    console.log(`✅ Server running at: http://localhost:${PORT}`);
+    console.log('\n📋 ENDPOINTS:');
+    });
