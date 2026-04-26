@@ -99,4 +99,45 @@ const server = http.createServer(async (req, res) => {
             sendJSON(res, 400, { error: 'Invalid JSON body' });
         }
     }
+       else if (method === 'PUT' && url.match(/^\/songs\/\d+$/)) {
+        try {
+            const id = parseInt(url.split('/')[2]);
+            const body = await parseBody(req);
+            const songs = readData();
+            const index = songs.findIndex(s => s.id === id);
+            
+            if (index === -1) {
+                sendJSON(res, 404, { error: 'Song not found' });
+                return;
+            }
+            songs[index] = {
+                ...songs[index],
+                title: body.title || songs[index].title,
+                artist: body.artist || songs[index].artist,
+                album: body.album || songs[index].album,
+                genre: body.genre || songs[index].genre,
+                duration: body.duration || songs[index].duration,
+                year: body.year !== undefined ? body.year : songs[index].year
+            };
+            writeData(songs);
+            sendJSON(res, 200, songs[index]);
+        } catch (error) {
+            sendJSON(res, 400, { error: 'Invalid JSON body' });
+        }
+    }
+    else if (method === 'DELETE' && url.match(/^\/songs\/\d+$/)) {
+        const id = parseInt(url.split('/')[2]);
+        const songs = readData();
+        const index = songs.findIndex(s => s.id === id);
+        if (index === -1) {
+            sendJSON(res, 404, { error: 'Song not found' });
+            return;
+        }
+        songs.splice(index, 1);
+        writeData(songs);
+        sendJSON(res, 200, { message: 'Song deleted successfully' });
+    }
+    else {
+        sendJSON(res, 404, { error: 'Route not found' });
+    }
     });
