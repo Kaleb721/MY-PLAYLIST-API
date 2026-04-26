@@ -147,4 +147,11 @@ const server = http.createServer(async (req, res) => {
     console.log('=================================');
     console.log(`✅ Server running at: http://localhost:${PORT}`);
     console.log('\n📋 ENDPOINTS:');
+      console.log('---------------------------------');
+    console.log('GET    /songs           - Get all songs');
+    console.log('GET    /songs/1         - Get song with ID 1');
+    console.log('POST   /songs           - Add song (gets ID 1,2,3...)');
+    console.log('PUT    /songs/1         - Update song with ID 1');
+    console.log('DELETE /songs/1         - Delete song with ID 1');
+    console.log('=================================\n');
     });
