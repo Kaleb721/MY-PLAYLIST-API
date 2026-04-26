@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "title": "Das Tal (Ansaw)",
+    "artist": "Teddy Afro",
+    "album": "Etorika",
+    "genre": "Ethio-Reggae",
+    "duration": "5:30",
+    "year": 2026
+  },
+  {
+    "id": 2,
+    "title": "Etorika",
+    "artist": "Teddy Afro",
+    "album": "Etorika",
+    "genre": "Ethio-Pop",
+    "duration": "4:50",
+    "year": 2026
+  },
+  {
+    "id": 3,
+    "title": "Samnew",
+    "artist": "Teddy Afro",
+    "album": "Etorika",
+    "genre": "Ethio-Jazz",
+    "duration": "5:15",
+    "year": 2026
+  },
+  {
+    "id": 4,
+    "title": "Tsion Mushraye",
+    "artist": "Teddy Afro",
+    "album": "Etorika",
+    "genre": "Ethio-Pop",
+    "duration": "5:00",
+    "year": 2026
+  }
+]
