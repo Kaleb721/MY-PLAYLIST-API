@@ -57,3 +57,46 @@ function sendJSON(res, statusCode, data) {
     res.writeHead(statusCode, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify(data));
 }
+const server = http.createServer(async (req, res) => {
+    const url = req.url;
+    const method = req.method;
+    console.log(`${method} ${url}`);
+    if (method === 'GET' && url === '/songs') {
+        const songs = readData();
+        sendJSON(res, 200, songs);
+    }
+    else if (method === 'GET' && url.match(/^\/songs\/\d+$/)) {
+        const id = parseInt(url.split('/')[2]);
+        const songs = readData();
+        const song = songs.find(s => s.id === id);
+        if (song) {
+            sendJSON(res, 200, song);
+        } else {
+            sendJSON(res, 404, { error: 'Song not found' });
+        }
+    }
+    else if (method === 'POST' && url === '/songs') {
+        try {
+            const body = await parseBody(req);
+            if (!body.title || !body.artist) {
+                sendJSON(res, 400, { error: 'Title and artist are required' });
+                return;
+            }
+            const songs = readData();
+            const newSong = {
+                id: getNextId(songs),  // This gives 1, 2, 3...
+                title: body.title,
+                artist: body.artist,
+                album: body.album || '',
+                genre: body.genre || '',
+                duration: body.duration || '',
+                year: body.year || null
+            };
+            songs.push(newSong);
+            writeData(songs);
+            sendJSON(res, 201, newSong);
+        } catch (error) {
+            sendJSON(res, 400, { error: 'Invalid JSON body' });
+        }
+    }
+    });
