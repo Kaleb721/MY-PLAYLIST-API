@@ -4,7 +4,7 @@ const path = require('path');
 
 const PORT = 4000;
 const DATA_FOLDER = path.join(__dirname, 'data');
-const DATA_FILE = path.join(DATA_FOLDER, 'playlist.json');
+const DATA_FILE = path.join(DATA_FOLDER, 'PLAYLIST.json');
 function ensureDataFile() {
     if (!fs.existsSync(DATA_FOLDER)) {
         fs.mkdirSync(DATA_FOLDER);
